@@ -27,6 +27,28 @@ services:
     networks:
       - internal
 
+  mysql:
+    container_name: product-mysql
+    image: mysql
+    restart: always
+    environment:
+      - DATABASE_AUTHENTICATION_PLUGIN=mysql_native_password
+      - DATABASE_HOST=127.0.0.1
+      - DATABASE_DATABASE=sandbox
+      - DATABASE_USER=sandbox
+      - DATABASE_PASSWORD=sandbox
+      - DATABASE_ROOT_PASSWORD=sandbox
+      - DATABASE_DIALECT=mysql
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    labels:
+      - traefik.enable=false
+    volumes:
+      - db-mysql:/var/lib/mysql
+
+
   traefik:
     image: traefik:v2.1
     command:
@@ -46,4 +68,4 @@ networks:
   internal:
 
 volumes:
-  data:
+  db-mysql:
