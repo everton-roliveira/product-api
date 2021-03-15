@@ -7,13 +7,11 @@ module.exports = {
 				type: Sequelize.UUID,
 				allowNull: false,
 				primaryKey: true,
-				unique: true,
 				defaultValue: Sequelize.UUIDV4
 			},
 			name: {
 				type: Sequelize.STRING(50),
-				allowNull: false,
-				unique: true
+				allowNull: false
 			},
 			isActive: {
 				type: Sequelize.BOOLEAN,
@@ -35,6 +33,20 @@ module.exports = {
 				defaultValue: Sequelize.NOW
 			}
 		});
+		await queryInterface.addConstraint(TABLE_NAME,
+			{
+				fields: [ "id" ],
+				type: "unique",
+				name: `uk_${TABLE_NAME}__id`
+			},
+		);
+		await queryInterface.addConstraint(TABLE_NAME,
+			{
+				fields: [ "name" ],
+				type: "unique",
+				name: `uk_${TABLE_NAME}__name`
+			},
+		);
 		await queryInterface.addConstraint(TABLE_NAME, {
 			fields: [ "image_id" ],
 			type: "foreign key",

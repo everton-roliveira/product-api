@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const TABLE_NAME = "images";
 module.exports = {
@@ -8,7 +8,6 @@ module.exports = {
 				type: Sequelize.UUID,
 				primaryKey: true,
 				allowNull: false,
-				unique: true,
 				defaultValue: Sequelize.UUIDV4
 			},
 			description: {
@@ -17,8 +16,7 @@ module.exports = {
 			},
 			path: {
 				type: Sequelize.STRING(200),
-				allowNull: false,
-				unique: true
+				allowNull: false
 			},
 			createdAt: {
 				type: Sequelize.DATE,
@@ -31,11 +29,20 @@ module.exports = {
 				defaultValue: Sequelize.NOW
 			}
 		});
-		await queryInterface.addConstraint(TABLE_NAME, {
-			fields: ['description', 'path'],
-			type: 'unique',
-			name: `uk_${TABLE_NAME}__description__path`
-		});
+		await queryInterface.addConstraint(TABLE_NAME,
+			{
+				fields: [ "id" ],
+				type: "unique",
+				name: `uk_${TABLE_NAME}__id`
+			},
+		);
+		await queryInterface.addConstraint(TABLE_NAME,
+			{
+				fields: [ "description", "path" ],
+				type: "unique",
+				name: `uk_${TABLE_NAME}__description__path`
+			}
+		);
 	},
 	down: async (queryInterface) => {
 		await queryInterface.dropTable(TABLE_NAME);
