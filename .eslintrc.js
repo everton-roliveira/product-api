@@ -25,7 +25,7 @@ module.exports = {
 		"array-bracket-spacing": [ "error", "always", { "singleValue": true } ],
 		"capitalized-comments": [ "error" ],
 		"block-spacing": "error",
-		"new-cap": "error",
+		"new-cap": [ "error", { "capIsNewExceptions": [ "STRING" ] } ],
 		"no-lonely-if": "error",
 
 		// POSSIVEIS ERROS
