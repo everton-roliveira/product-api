@@ -25,28 +25,24 @@ module.exports = {
 			createdAt: {
 				type: Sequelize.DATE,
 				allowNull: false,
-				defaultValue: Sequelize.NOW
+				defaultValue: new Date()
 			},
 			updatedAt: {
 				type: Sequelize.DATE,
 				allowNull: false,
-				defaultValue: Sequelize.NOW
+				defaultValue: new Date()
 			}
 		});
-		await queryInterface.addConstraint(TABLE_NAME,
-			{
-				fields: [ "id" ],
-				type: "unique",
-				name: `uk_${TABLE_NAME}__id`
-			},
-		);
-		await queryInterface.addConstraint(TABLE_NAME,
-			{
-				fields: [ "name" ],
-				type: "unique",
-				name: `uk_${TABLE_NAME}__name`
-			},
-		);
+		await queryInterface.addConstraint(TABLE_NAME, {
+			fields: [ "id" ],
+			type: "unique",
+			name: `uk_${TABLE_NAME}__id`
+		});
+		await queryInterface.addConstraint(TABLE_NAME, {
+			fields: [ "name" ],
+			type: "unique",
+			name: `uk_${TABLE_NAME}__name`
+		});
 		await queryInterface.addConstraint(TABLE_NAME, {
 			fields: [ "image_id" ],
 			type: "foreign key",
@@ -54,7 +50,8 @@ module.exports = {
 			references: {
 				table: "images",
 				field: "id"
-			}
+			},
+			onDelete: "cascade"
 		});
 	},
 	down: async (queryInterface) => {

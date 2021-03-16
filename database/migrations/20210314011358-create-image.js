@@ -21,28 +21,24 @@ module.exports = {
 			createdAt: {
 				type: Sequelize.DATE,
 				allowNull: false,
-				defaultValue: Sequelize.NOW
+				defaultValue: new Date()
 			},
 			updatedAt: {
 				type: Sequelize.DATE,
 				allowNull: false,
-				defaultValue: Sequelize.NOW
+				defaultValue: new Date()
 			}
 		});
-		await queryInterface.addConstraint(TABLE_NAME,
-			{
-				fields: [ "id" ],
-				type: "unique",
-				name: `uk_${TABLE_NAME}__id`
-			},
-		);
-		await queryInterface.addConstraint(TABLE_NAME,
-			{
-				fields: [ "description", "path" ],
-				type: "unique",
-				name: `uk_${TABLE_NAME}__description__path`
-			}
-		);
+		await queryInterface.addConstraint(TABLE_NAME, {
+			fields: [ "id" ],
+			type: "unique",
+			name: `uk_${TABLE_NAME}__id`
+		});
+		await queryInterface.addConstraint(TABLE_NAME, {
+			fields: [ "description", "path" ],
+			type: "unique",
+			name: `uk_${TABLE_NAME}__description__path`
+		});
 	},
 	down: async (queryInterface) => {
 		await queryInterface.dropTable(TABLE_NAME);
