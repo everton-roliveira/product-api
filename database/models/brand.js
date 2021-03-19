@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 			const {brand, image} = models;
 			brand.belongsTo(image, {
 				sourceKey: "id",
-				foreignKey: "image_id", as: "imageId",
+				foreignKey: "image_id",
 			});
 		}
 	}
@@ -30,8 +30,9 @@ module.exports = (sequelize, DataTypes) => {
 			defaultValue: true
 		},
 		imageId: {
-			type: sequelize.UUID,
+			type: DataTypes.UUID,
 			allowNull: false,
+			field: "image_id"
 		},
 		createdAt: {
 			type: DataTypes.DATE,
