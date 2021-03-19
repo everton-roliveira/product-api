@@ -1,4 +1,5 @@
 "use strict";
+const sequelize = require("./middlewares/sequelize");
 
 /**
  * Moleculer ServiceBroker configuration file
@@ -190,23 +191,10 @@ module.exports = {
 	},
 
 	// Register custom middlewares
-	middlewares: [],
+	middlewares: [
+		sequelize()
+	],
 
 	// Register custom REPL commands.
 	replCommands: null,
-
-	// Called after broker created.
-	created(broker) {
-
-	},
-
-	// Called after broker started.
-	async started(broker) {
-
-	},
-
-	// Called after broker stopped.
-	async stopped(broker) {
-
-	}
 };

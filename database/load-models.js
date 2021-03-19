@@ -2,12 +2,12 @@ const fs = require("fs");
 const path = require("path");
 const models = {};
 const loadModels = (connection, Sequelize) => {
-	const dir = __dirname + "/../databases/models";
+	const dir = __dirname + "/models";
 	fs
 		.readdirSync(dir)
 		.filter(file => file.endsWith(".js"))
-		.map(file => {
-			const model = require(path.join(dir, file))(connection, Sequelize.DataTypes);
+		.map(async file => {
+			const model = await require(path.join(dir, file))(connection, Sequelize.DataTypes);
 			models[model.name] = model;
 			return model;
 		}).forEach(model => {

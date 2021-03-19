@@ -1,15 +1,14 @@
 version: "3.3"
 
 services:
-
   api:
     build:
       context: .
     image: product-api
+    command: npm run dev
     env_file: docker-compose.env
     environment:
       SERVICES: api
-      PORT: 3000
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.api-gw.rule=PathPrefix(`/`)"
@@ -17,15 +16,15 @@ services:
     networks:
       - internal
 
-  greeter:
-    build:
-      context: .
-    image: product-api
-    env_file: docker-compose.env
-    environment:
-      SERVICES: greeter
-    networks:
-      - internal
+  # greeter:
+  #   build:
+  #     context: .
+  #   image: product-api
+  #   env_file: docker-compose.env
+  #   environment:
+  #     SERVICES: greeter
+  #   networks:
+  #     - internal
 
   mysql:
     container_name: product-mysql
@@ -47,7 +46,6 @@ services:
       - traefik.enable=false
     volumes:
       - db-mysql:/var/lib/mysql
-
 
   traefik:
     image: traefik:v2.1

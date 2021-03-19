@@ -33,9 +33,11 @@
     "moleculer-repl": "^0.6.4"
   },
   "dependencies": {
+    "fs": "0.0.1-security",
     "moleculer": "^0.14.10",
     "moleculer-web": "^0.9.0",
     "mysql2": "^2.2.5",
+    "path": "^0.12.7",
     "sequelize": "^6.5.0",
     "sequelize-cli": "^6.2.0",
     "uuid": "^8.3.2"
