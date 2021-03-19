@@ -1,6 +1,7 @@
+const ResponseMixin = require("../mixins/response.mixin");
 module.exports = {
 	name: "brand",
-	mixins: [],
+	mixins: [ ResponseMixin ],
 	settings: {
 	},
 	actions: {
@@ -17,30 +18,10 @@ module.exports = {
 				return this.models.brand.findAndCountAll({
 					where: null,
 					limit,
-					offset,
-					order: [
-						[ "createdAt", "ASC" ]
-					]
+					offset
 				})
 					.then(response => this.getPagingData(response, page, limit))
 					.catch(err => console.log(err));
-			}
-		},
-		getPagination:{
-			handler(page, size) {
-				const limit = size ? +size : 10;
-				const offset = page ? (page - 1) * limit : 0;
-
-				return { limit, offset };
-			}
-		},
-		getPagingData: {
-			handler(response, page, limit) {
-				const { count: totalItems, rows: data } = response;
-				const currentPage = page ? +page : 0;
-				const totalPages = Math.ceil(totalItems / limit);
-
-				return { data, totalItems, totalPages, currentPage };
 			}
 		}
 	}
