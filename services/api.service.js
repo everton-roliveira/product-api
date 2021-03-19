@@ -15,10 +15,10 @@ module.exports = {
 	// More info about settings: https://moleculer.services/docs/0.14/moleculer-web.html
 	settings: {
 		// Exposed port
-		port: process.env.PORT || 3000,
+		port: process.env.PORT,
 
 		// Exposed IP
-		ip: "0.0.0.0",
+		ip: process.env.EXPOSED_IP,
 
 		// Global Express middlewares. More info: https://moleculer.services/docs/0.14/moleculer-web.html#Middlewares
 		use: [],
@@ -48,7 +48,7 @@ module.exports = {
 				autoAliases: true,
 
 				aliases: {
-
+					"GET /brands": "brand.listAll"
 				},
 
 				/**
@@ -129,29 +129,29 @@ module.exports = {
 		 * @param {IncomingRequest} req
 		 * @returns {Promise}
 		 */
-		async authenticate(ctx, route, req) {
-			// Read the token from header
-			const auth = req.headers["authorization"];
+		// Async authenticate(ctx, route, req) {
+		// 	// Read the token from header
+		// 	Const auth = req.headers["authorization"];
 
-			if (auth && auth.startsWith("Bearer")) {
-				const token = auth.slice(7);
+		// 	If (auth && auth.startsWith("Bearer")) {
+		// 		Const token = auth.slice(7);
 
-				// Check the token. Tip: call a service which verify the token. E.g. `accounts.resolveToken`
-				if (token == "123456") {
-					// Returns the resolved user. It will be set to the `ctx.meta.user`
-					return { id: 1, name: "John Doe" };
+		// 		// Check the token. Tip: call a service which verify the token. E.g. `accounts.resolveToken`
+		// 		If (token == "123456") {
+		// 			// Returns the resolved user. It will be set to the `ctx.meta.user`
+		// 			Return { id: 1, name: "John Doe" };
 
-				} else {
-					// Invalid token
-					throw new ApiGateway.Errors.UnAuthorizedError(ApiGateway.Errors.ERR_INVALID_TOKEN);
-				}
+		// 		} else {
+		// 			// Invalid token
+		// 			Throw new ApiGateway.Errors.UnAuthorizedError(ApiGateway.Errors.ERR_INVALID_TOKEN);
+		// 		}
 
-			} else {
-				// No token. Throw an error or do nothing if anonymous access is allowed.
-				// Throw new E.UnAuthorizedError(E.ERR_NO_TOKEN);
-				return null;
-			}
-		},
+		// 	} else {
+		// 		// No token. Throw an error or do nothing if anonymous access is allowed.
+		// 		// Throw new E.UnAuthorizedError(E.ERR_NO_TOKEN);
+		// 		Return null;
+		// 	}
+		// },
 
 		/**
 		 * Authorize the request. Check that the authenticated user has right to access the resource.
@@ -163,15 +163,15 @@ module.exports = {
 		 * @param {IncomingRequest} req
 		 * @returns {Promise}
 		 */
-		async authorize(ctx, route, req) {
-			// Get the authenticated user.
-			const user = ctx.meta.user;
+		// Async authorize(ctx, route, req) {
+		// 	// Get the authenticated user.
+		// 	Const user = ctx.meta.user;
 
-			// It check the `auth` property in action schema.
-			if (req.$action.auth == "required" && !user) {
-				throw new ApiGateway.Errors.UnAuthorizedError("NO_RIGHTS");
-			}
-		}
+		// 	// It check the `auth` property in action schema.
+		// 	If (req.$action.auth == "required" && !user) {
+		// 		Throw new ApiGateway.Errors.UnAuthorizedError("NO_RIGHTS");
+		// 	}
+		// }
 
 	}
 };
