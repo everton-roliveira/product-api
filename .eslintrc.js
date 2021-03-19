@@ -23,7 +23,6 @@ module.exports = {
 		"no-unused-vars": [ "warn" ],
 		"no-mixed-spaces-and-tabs": [ "warn" ],
 		"array-bracket-spacing": [ "error", "always", { "singleValue": true } ],
-		"capitalized-comments": [ "error" ],
 		"block-spacing": "error",
 		"new-cap": [ "error", { "capIsNewExceptions": [ "STRING" ] } ],
 		"no-lonely-if": "error",
